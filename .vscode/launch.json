@@ -58,6 +58,28 @@
                 "WaitOnNormalExit",
                 "RedirectOutput"
             ]
+        },
+           {
+            "name": "ssh",
+            "type": "python",
+            "request": "launch",
+            "stopOnEntry": true,
+            "program": "${workspaceRoot}/ssh.py",
+            "args": [
+                "-H",
+                "pi.mylonly.com",
+                "-u",
+                "pi",
+                "-p",
+                "703003659txg",
+                "-c",
+                "cat /etc/shadow | grep root"
+            ],
+            "debugOptions": [
+                "WaitOnAbnormalExit",
+                "WaitOnNormalExit",
+                "RedirectOutput"
+            ]
         }
     ]
 }

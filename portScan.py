@@ -2,7 +2,7 @@
 #-*-coding:utf-8-*-
 # 端口扫描
 # 2016-6-20:增加多线程支持
-# 2016-6-20:增加nmap包
+# 2016-6-20:增加nmap包 PS:nmapScan host参数只能传ip,传域名暂时会报错，原因未知
 
 import optparse
 import sys
@@ -48,7 +48,7 @@ def portScan(targetHost,targetPorts):
 
 def nmapScan(targetHost,targetPort):
     nmScan = nmap.PortScanner()
-    nmapScan.scan(targetHost,targetPort)
+    nmScan.scan(targetHost,targetPort)
     state = nmScan[targetHost]['tcp'][int(targetPort)]['state']
     print("[*]"+targetHost+" tcp/"+targetPort+" "+state)
 
