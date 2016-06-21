@@ -6,17 +6,20 @@
 
 import pexpect
 import optparse
+import sys
 
-PROMPT = ['#','$','>','\$','>>>']
+PROMPT = ['#','>','\$','>>>']
 
 def send_command(child,cmd):
     child.sendline(cmd)
     child.expect(PROMPT)
-    print(child.before)
+    print child.before
 
 def createChildSession(host,username,password):
     command = 'ssh '+username+'@'+host
     child = pexpect.spawn(command)
+    #child.logfile = sys.stdout
+
     ret = child.expect([pexpect.TIMEOUT,'Are you sure you want to continue connecting','[P|p]assword']+PROMPT)
     if ret == 0:
         print('[-] Error Connecting')
@@ -29,7 +32,6 @@ def createChildSession(host,username,password):
             return
         if ret == 1:
             send_command(password)
-            return
     if ret == 2:
         send_command(password)
         return
