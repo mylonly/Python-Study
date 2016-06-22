@@ -18,7 +18,6 @@ def send_command(child,cmd):
 def createChildSession(host,username,password):
     command = 'ssh '+username+'@'+host
     child = pexpect.spawn(command)
-    #child.logfile = sys.stdout
 
     ret = child.expect([pexpect.TIMEOUT,'Are you sure you want to continue connecting','[P|p]assword']+PROMPT)
     if ret == 0:
@@ -31,10 +30,9 @@ def createChildSession(host,username,password):
             print('[-] Error Connecting')
             return
         if ret == 1:
-            send_command(password)
+            send_command(child,password)
     if ret == 2:
-        send_command(password)
-        return
+        send_command(child,password)
     return child
 
 def main():
